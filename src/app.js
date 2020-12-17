@@ -26,7 +26,7 @@ app.get('/mario/:id',async(req,res)=> {
     }
 });
 
-//const isNullOrUnderfined =val => val === null || val === undefined;
+const isNullOrUnderfined =val => val === null || val === undefined;
 
 app.post('/mario',async(req,res)=> {
     const newMario =req.body;
