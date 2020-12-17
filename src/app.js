@@ -16,13 +16,13 @@ app.get('/mario',async(req,res)=> {
     res.send(await marioModel.find());
 });
 
-app.get('/mario/:id',async(req,res)=> {
+app.get('/mario/:id', async(req,res)=> {
     const id =res.params.id;
     try{
     res.send(await marioModel.findById(id));
     }
     catch(e){
-        res.status(400).send({message:e.message});
+        res.status(400).send({message: e.message});
     }
 });
 
