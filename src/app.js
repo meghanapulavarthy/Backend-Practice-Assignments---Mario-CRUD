@@ -26,7 +26,7 @@ app.get('/mario/:id',async(req,res)=> {
     }
 });
 
-const isNullOrUnderfined =val => val === null || val === undefined;
+//const isNullOrUnderfined =val => val === null || val === undefined;
 
 app.post('/mario',async(req,res)=> {
     const newMario =req.body;
@@ -46,7 +46,7 @@ app.patch('/mario/:id',async(req,res)=> {
     try{
         const datapresent = await marioModel.findById(id);
         if(isNullOrUnderfined(newMario.name) && isNullOrUnderfined(newMario.weight)){
-            res.status(400).send({message:'both name and weight is missing'});
+            res.status(400).send({message:"both name and weight is missing"});
         }else {
             if(!isNullOrUnderfined(newMario.name)){
                 datapresent.name =newMario.name;
