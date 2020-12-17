@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // your code goes here
-app.get('/mario',sync(req,res)=> {
+app.get('/mario',async(req,res)=> {
     res.send(await marioModel.find());
 });
 
@@ -29,15 +29,14 @@ app.get('/mario/:id',async(req,res)=> {
 const isNullOrUnderfined =val => val === null || val === undefined;
 
 app.post('/mario',async(req,res)=> {
-    const newMario =req.params.id;
+    const newMario =req.body;
     if(isNullOrUnderfined(newMario.name) || isNullOrUnderfined(newMario.weight)){
         res.status(400).send({message:'either name or weight is missing'});
     }else{
         const newMarioDocument =new marioModel(newMario);
         await newMarioDocument.save();
-        res.send(newMarioDocument);
+        res.status(201).send(newMarioDocument);
     }
-    res.status(201).send(await marioModel.find());
 });
 
 
@@ -49,10 +48,10 @@ app.patch('/mario/:id',async(req,res)=> {
         if(isNullOrUnderfined(newMario.name) && isNullOrUnderfined(newMario.weight)){
             res.status(400).send({message:'both name and weight is missing'});
         }else {
-            if(isNullOrUnderfined(newMario.name)){
+            if(!isNullOrUnderfined(newMario.name)){
                 datapresent.name =newMario.name;
             }
-            if(isNullOrUnderfined(newMario.weight)){
+            if(!isNullOrUnderfined(newMario.weight)){
                 datapresent.weight =newMario.weight;
             }
             await datapresent.save();
