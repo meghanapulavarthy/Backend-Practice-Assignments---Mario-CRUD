@@ -17,7 +17,7 @@ app.get('/mario',async(req,res)=> {
 });
 
 app.get('/mario/:id', async(req,res)=> {
-    const id =res.params.id;
+    const id =req.params.id;
     try{
     res.send(await marioModel.findById(id));
     }
